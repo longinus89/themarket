@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+	function startAudio(){
+		var audio = document.getElementById('audio');
+		audio.play();
+	}
+	setTimeout(function(){ $('#start').trigger("click"); },4000);
+
+	</script>
+</head>
+<body>
+<button id="start" onclick="startAudio();">START</button>
+<audio id="audio" controls>
+    <source src="http://dl.dropbox.com/u/1538714/article_resources/meow.m4a" type="audio/mpeg" />
+    <source src="http://dl.dropbox.com/u/1538714/article_resources/meow.ogg" type="audio/ogg" />
+</audio>
+
+</body>
+</html>

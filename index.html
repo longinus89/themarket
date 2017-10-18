@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebVR Photosphere Viewer</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Fullscreen Landscape on iOS -->
+
+    <meta name="abstract" content="" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="copyright" content="" />
+    <meta name="robots" content="follow, index" />
+
+    <meta property="og:site_name" content="" />
+    <meta property="og:image:secure_url" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:title" content="WebVR Photosphere Viewer" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+
+    <script src="js/aframe.min.js"></script>
+    <script src="js/components/isvr_photosphere_menu.js"></script>
+    <script src="js/components/isvr_photosphere_menu_thumb.js"></script>
+    <script src="js/components/isvr_photosphere_menu_navigation.js"></script>
+
+</head>
+<body>
+
+<script>
+
+    var isPlaying=false;
+
+    function togglePlay() {
+        var audio = document.getElementById('audio');
+
+        audio.onplaying = function() {
+          isPlaying = true;
+        };
+        audio.onpause = function() {
+          isPlaying = false;
+        };
+
+        if(isPlaying){
+            audio.pause()
+        } else {
+            audio.play();
+        }
+    };
+</script>
+
+
+<audio id="audio" controls>
+    <source src="audio/eternal_promise.mp3" type="audio/mp3" loop="loop"/>
+</audio>
+
+    <a-scene>
+
+
+        <a-assets>
+            <img src="images/360wall.jpg" id="img-photosphere-0">
+            <img src="images/photo_1.jpg" id="img-photosphere-1">
+            <img src="images/photo_1_thumb.jpg" id="img-photosphere-1-thumb">
+            <img src="images/photo_2.jpg" id="img-photosphere-2">
+            <img src="images/photo_2_thumb.jpg" id="img-photosphere-2-thumb">
+            <img src="images/photo_3.jpg" id="img-photosphere-3">
+            <img src="images/photo_3_thumb.jpg" id="img-photosphere-3-thumb">
+
+            <img src="images/wallpaper_1.jpg" id="wallpaper1">
+
+            <img src="images/frame_1.png" id="frame-1">
+            <img src="images/frame_2.jpg" id="frame-2">
+            <img src="images/frame_3.jpg" id="frame-3">
+
+            <img src="images/audio.jpg" id="audio-icon">
+            <img src="images/arrow_1.png" id="arrow-1">
+            <img src="images/arrow_2.png" id="arrow-2">
+            <img src="images/arrow_3.png" id="arrow-3">
+
+            <img src="images/eye.png" id="eye-1">
+            
+
+
+        </a-assets>
+        
+        <!--<a-sound src="#audio-1" autoplay="true" loop="true"
+        position="0 0 0"></a-sound>-->
+
+        <a-entity position="0 1.8 5"  rotation="0 180 0">
+            <a-entity
+                id="camera" 
+                camera="far: 10000; fov: 80; near: 0.5;"
+                look-controls="enabled: true" visible="true">
+                <a-entity
+                    cursor="fuse: false; maxDistance: 500; timeout: 3000;"
+                    id="cursor"
+                    position="0 0 -3.4"
+                    geometry="primitive: ring; radiusOuter: 0.10; radiusInner: 0.05;"
+                    material="color: blue; shader: flat;"
+                    visible="true">
+                </a-entity>
+            </a-entity>
+        </a-entity>
+
+         
+        <a-entity data-current-page="1" id="photosphere-menu" width="5" height="12" visible="true" rotation="0 90 0" position="-8 1.8 4">
+            <a-entity id="img-frame" position="0 1.5 0" visible="true">
+                <a-plane position="0.04 -1.55 -0.5" rotation="0 0 0" width="2.62" height="5.1" material="src:#wallpaper1; repeat: 1 2"></a-plane>
+            </a-entity>
+                         
+            <a-image data-image-id="1" isvr-photosphere-menu-thumb class="img-photosphere-thumb" src="#img-photosphere-1-thumb" width="2" height="1.1" position="0 1.5 0.2">
+                <a-animation attribute="position" begin="mouseenter" from="0 1.5 0" to="0 1.5 0.5" dur="400"></a-animation>
+                <a-animation attribute="position" begin="mouseleave" from="0 1.5 0.5" to="0 1.5 0" dur="400"></a-animation>
+                <a-animation attribute="material.opacity" begin="fade" to="1"></a-animation>
+            </a-image>
+                         
+            <a-image data-image-id="2" isvr-photosphere-menu-thumb class="img-photosphere-thumb" src="#img-photosphere-2-thumb" width="2" height="1.1" position="0 0 0.2">
+                <a-animation attribute="position" begin="mouseenter" from="0 0 0" to="0 0 0.5" dur="400"></a-animation>
+                <a-animation attribute="position" begin="mouseleave" from="0 0 0.5" to="0 0 0" dur="400"></a-animation>
+                <a-animation attribute="material.opacity" begin="fade" to="1"></a-animation>
+            </a-image>
+                         
+            <a-image data-image-id="3" isvr-photosphere-menu-thumb class="img-photosphere-thumb" src="#img-photosphere-3-thumb" width="2" height="1.1" position="0 -1.5 0.2">
+                <a-animation attribute="position" begin="mouseenter" from="0 -1.5 0" to="0 -1.5 0.5" dur="400"></a-animation>
+                <a-animation attribute="position" begin="mouseleave" from="0 -1.5 0.5" to="0 -1.5 0" dur="400"></a-animation>
+                <a-animation attribute="material.opacity" begin="fade" to="1"></a-animation>
+            </a-image>
+                        
+            <!--<a-entity isvr-photosphere-menu-navigation="url:https://www.ideaspacevr.org/webvr-photosphere-viewer-equirectangular-images/field-data?key=images_upload&chunk-size=3&page=2" id="menu-arrow-down" position="0 -1.5 0" visible=" true ">
+                <a-plane position="-0.07 0 0" rotation="0 0 45" width="0.10" height="0.3" color="#5b00f4"></a-plane>
+                <a-plane position="0.07 0 0" rotation="0 0 -45" width="0.10" height="0.3" color="#5b00f4"></a-plane>
+            </a-entity>-->
+        </a-entity>
+
+        <a-entity id="photosphere-displayer-1" visible="true" position="0 2 -14" rotation="0 360 0">
+            <a-image id="img-photosphere-displayer-img" class="img-photosphere-displayer-img" src="#img-photosphere-1" width="36" height="19.2">
+                <!--<a-animation attribute="position" begin="mouseenter" from="0 0.8 0" to="0 0.8 0.5" dur="400"></a-animation>
+                <a-animation attribute="position" begin="mouseleave" from="0 0.8 0.5" to="0 0.8 0" dur="400"></a-animation>-->
+                <a-animation attribute="material.opacity" begin="fade" to="1"></a-animation>
+            </a-image>
+        </a-entity>
+
+        <a-entity id="photosphere-displayer-2" visible="true" position="0 2 15" rotation="0 180 0">
+            <a-image id="frame-1" class="frame-1" src="#frame-1" width="20" height="8.4">
+                <a-animation attribute="position" begin="mouseenter" from="0 0.8 0" to="0 0.8 1" dur="400"></a-animation>
+                <a-animation attribute="position" begin="mouseleave" from="0 0.8 1" to="0 0.8 0" dur="400"></a-animation>
+                <a-animation attribute="material.opacity" begin="fade" to="1"></a-animation>
+                <a-entity id="photosphere-displayer-3" onclick="togglePlay();" visible="true" position="8.7 3.4 0.3" rotation="0 0 0">
+                    <a-image id="frame-audio" class="frame-audio" src="#audio-icon" width="1" height="1"></a-image>
+                </a-entity>
+            </a-image>
+
+        </a-entity>
+
+        <a-entity id="photosphere-displayer-3" visible="true" position="12 2 5.3" rotation="0 90 0">
+            <a-image id="frame-2" class="frame-1" src="#frame-2" width="12" height="5.7">
+                <a-animation attribute="position" begin="mouseenter" from="0 0 0" to="0 0 -1" dur="400"></a-animation>
+                <a-animation attribute="position" begin="mouseleave" from="0 0 -1" to="0 0 0" dur="400"></a-animation>
+                <a-animation attribute="material.opacity" begin="fade" to="1"></a-animation>
+            </a-image>
+        </a-entity>
+        
+
+
+        <script>
+            document.querySelector('#frame-audio').addEventListener('mouseenter', function () {
+                //timer = setTimeout(function(){ changePhoto(elem); }, 1500);
+                document.querySelector('#cursor').setAttribute("material","color","red");
+            });
+
+            document.querySelector('#frame-audio').addEventListener('mouseleave', function () {
+                //clearTimeout(timer);
+                document.querySelector('#cursor').setAttribute("material","color","blue");
+            });
+        </script>
+
+        <!--<a-entity id="e-arrow-1" visible="true" position="-12 2.5 14.5" rotation="0 180 0">
+            <a-image id="i-arrow-1" class="frame-arrow" src="#arrow-1" width="2" height="1.52"></a-image>
+        </a-entity>-->
+
+        <a-entity id="e-arrow-2" visible="true" position="-12 2.5 10" rotation="0 90 0">
+            <a-image id="i-arrow-2" class="frame-arrow" src="#arrow-1" width="2" height="1.52"></a-image>
+        </a-entity>
+
+        <a-entity id="e-arrow-3" visible="false" position="-12 1.8 0.1" rotation="0 90 0">
+            <a-image id="i-arrow-3" class="frame-arrow" src="#arrow-1" width="2" height="1.52"></a-image>
+        </a-entity>
+
+        <a-entity id="e-arrow-4" visible="false" position="17 2 -7.6" rotation="0 -45 0">
+            <a-image id="i-arrow-4" class="frame-arrow" src="#arrow-1" width="3" height="2.28"></a-image>
+        </a-entity>
+
+        <!--<a-entity id="e-eye-1" visible="true" rotation="0 90 0" position="-8 5.2 4">
+            <a-image id="i-eye-1" class="frame-arrow" src="#eye-1" width="1" height="1"></a-image>
+        </a-entity>-->
+
+        <a-entity 
+            geometry="primitive:sphere;radius:5000;segmentsWidth:64;segmentsHeight:64"
+            material="shader:flat;color:#ffffff;fog:false; src:#img-photosphere-0"
+            scale="-1 1 1"
+            rotation="0 -60 0" id="photosphere">
+        </a-entity>
+
+      <!--
+        <a-sound src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay="true"
+    position="-3 1 -4"></a-sound>
+      ... -->
+
+    </a-scene>
+
+</body>
+</html>
+
